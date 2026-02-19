@@ -4,111 +4,136 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="KanaVerse - Baca manga favorit dari berbagai sumber">
-  <title>KanaVerse - Browse & Read Manga</title>
+  <title>KanaVerse — Browse & Read</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Noto+Sans+JP:wght@400;500;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
+  <div class="noise-overlay"></div>
+
   <!-- Header -->
   <header class="header">
     <div class="container">
       <a href="/" class="logo">
-        <span class="logo-icon">📚</span>
-        <span class="logo-text">KanaVerse</span>
+        <div class="logo-mark"><span class="logo-jp">漫</span></div>
+        <div class="logo-text-wrap">
+          <span class="logo-text">MANGA<em>API</em></span>
+          <span class="logo-sub">v2.3.0</span>
+        </div>
       </a>
       <nav class="nav">
         <a href="/" class="nav-link active">Home</a>
+        <a href="#latest" class="nav-link">Terbaru</a>
         <a href="#popular" class="nav-link">Popular</a>
-        <a href="#genres" class="nav-link">Genres</a>
         <a href="/dashboard" class="nav-link">Dashboard</a>
       </nav>
       <div class="header-actions">
         <div class="search-box">
-          <input type="text" id="searchInput" placeholder="Cari manga..." autocomplete="off">
-          <button id="searchBtn" class="btn-search">🔍</button>
+          <input type="text" id="searchInput" placeholder="Cari judul manga..." autocomplete="off">
+          <button id="searchBtn" class="btn-search">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          </button>
         </div>
-        <select id="providerSelect" class="provider-select">
-          <option value="mangadex">MangaDex</option>
-          <option value="komikcast">Komikcast</option>
-          <option value="shinigami">Shinigami</option>
-          <option value="aquareader">Aquareader</option>
-        </select>
-        <button id="themeToggle" class="btn-theme">🌙</button>
+        <div class="provider-toggle">
+          <button class="provider-btn active" data-provider="mangadex">MangaDex</button>
+          <button class="provider-btn" data-provider="shinigami">Shinigami</button>
+        </div>
+        <button id="themeToggle" class="btn-theme" title="Toggle theme">
+          <svg class="icon-moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+          <svg class="icon-sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+        </button>
       </div>
     </div>
   </header>
 
   <!-- Hero Section -->
   <section class="hero">
-    <div class="container">
-      <h1 class="hero-title">Baca Manga Favorit Kamu</h1>
-      <p class="hero-subtitle">Akses ribuan manga dari berbagai sumber dalam satu platform</p>
-      <div class="hero-stats">
-        <div class="stat">
-          <span class="stat-value" id="totalManga">10,000+</span>
-          <span class="stat-label">Manga</span>
+    <div class="hero-bg-grid"></div>
+    <div class="container hero-inner">
+      <div class="hero-content">
+        <div class="hero-badge"><span class="badge-dot"></span><span>2 Provider Aktif</span></div>
+        <h1 class="hero-title">
+          <span class="title-jp">読む</span>
+          <span class="title-main">Baca Manga<br>Tanpa Batas</span>
+        </h1>
+        <p class="hero-subtitle">Akses ribuan manga dari Shinigami dan MangaDex dalam satu platform yang cepat.</p>
+        <div class="hero-stats">
+          <div class="stat"><span class="stat-value" id="totalManga">10K+</span><span class="stat-label">Manga</span></div>
+          <div class="stat-sep"></div>
+          <div class="stat"><span class="stat-value">2</span><span class="stat-label">Providers</span></div>
+          <div class="stat-sep"></div>
+          <div class="stat"><span class="stat-value" id="cacheHitRate">0%</span><span class="stat-label">Cache Hit</span></div>
         </div>
-        <div class="stat">
-          <span class="stat-value">4</span>
-          <span class="stat-label">Providers</span>
-        </div>
-        <div class="stat">
-          <span class="stat-value" id="cacheHitRate">0%</span>
-          <span class="stat-label">Cache Hit</span>
+      </div>
+      <div class="hero-deco">
+        <div class="deco-ring r1"></div>
+        <div class="deco-ring r2"></div>
+        <div class="deco-card">
+          <div class="deco-card-icon">📖</div>
+          <span class="deco-card-label">Mulai Baca</span>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Main Content -->
+  <!-- Main -->
   <main class="main">
     <div class="container">
-      <!-- Latest Section -->
       <section class="section" id="latest">
         <div class="section-header">
-          <h2 class="section-title">🆕 Manga Terbaru</h2>
-          <div class="section-controls">
-            <button id="refreshLatest" class="btn-refresh">↻ Refresh</button>
+          <div class="section-title-wrap">
+            <span class="section-num">01</span>
+            <h2 class="section-title">Manga Terbaru</h2>
           </div>
+          <button id="refreshLatest" class="btn-outline">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
+            Refresh
+          </button>
         </div>
-        <div class="manga-grid" id="latestGrid">
-          <div class="loading-skeleton"></div>
-        </div>
+        <div class="manga-grid" id="latestGrid"><div class="loading-skeleton"></div></div>
         <div class="pagination" id="latestPagination"></div>
       </section>
 
-      <!-- Popular Section -->
       <section class="section" id="popular">
         <div class="section-header">
-          <h2 class="section-title">🔥 Popular</h2>
+          <div class="section-title-wrap">
+            <span class="section-num">02</span>
+            <h2 class="section-title">Popular</h2>
+          </div>
         </div>
-        <div class="manga-grid" id="popularGrid">
-          <div class="loading-skeleton"></div>
-        </div>
+        <div class="manga-grid" id="popularGrid"><div class="loading-skeleton"></div></div>
       </section>
 
-      <!-- Search Results (Hidden by default) -->
       <section class="section hidden" id="searchResults">
         <div class="section-header">
-          <h2 class="section-title">🔍 Hasil Pencarian: <span id="searchQuery"></span></h2>
-          <button id="clearSearch" class="btn-secondary">✕ Tutup</button>
+          <div class="section-title-wrap">
+            <span class="section-num">🔍</span>
+            <h2 class="section-title">Hasil: <em id="searchQuery"></em></h2>
+          </div>
+          <button id="clearSearch" class="btn-outline">✕ Tutup</button>
         </div>
         <div class="manga-grid" id="searchGrid"></div>
       </section>
 
-      <!-- Manga Detail Modal -->
+      <!-- Detail Modal -->
       <div class="modal" id="detailModal">
+        <div class="modal-backdrop"></div>
         <div class="modal-content">
-          <button class="modal-close" id="closeModal">✕</button>
+          <button class="modal-close" id="closeModal">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+          </button>
           <div class="modal-body" id="detailContent"></div>
         </div>
       </div>
 
-      <!-- Chapter Reader Modal -->
+      <!-- Reader Modal -->
       <div class="modal reader-modal" id="readerModal">
         <div class="reader-header">
-          <button id="closeReader" class="btn-back">← Kembali</button>
+          <button id="closeReader" class="btn-back">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+            Kembali
+          </button>
           <span id="chapterTitle" class="chapter-title"></span>
           <div class="reader-nav">
             <button id="prevChapter" class="btn-nav">‹ Prev</button>
@@ -124,25 +149,20 @@
   <footer class="footer">
     <div class="container">
       <div class="footer-content">
-        <div class="footer-brand">
-          <span class="logo-icon">📚</span>
-          <span>KanaVerse v2.3.0</span>
-        </div>
+        <div class="footer-brand"><span class="logo-jp-sm">漫</span><span>KanaVerse v2.3.0</span></div>
         <div class="footer-links">
           <a href="/health" target="_blank">API Health</a>
           <a href="/providers" target="_blank">Providers</a>
           <a href="/dashboard" target="_blank">Dashboard</a>
           <a href="https://github.com/KanekiCraynet/api-manga" target="_blank">GitHub</a>
         </div>
-        <p class="footer-copy">© 2026 KanaVerse - Open Source Project</p>
+        <p class="footer-copy">© 2026 KanaVerse — Open Source</p>
       </div>
     </div>
   </footer>
 
-  <!-- Toast Notification -->
   <div id="toast" class="toast"></div>
-
   <script src="/js/app.js"></script>
 </body>
-  </html>
-        
+          </html>
+              
