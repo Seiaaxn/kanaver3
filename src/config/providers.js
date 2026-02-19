@@ -9,7 +9,7 @@ const providers = {
     baseUrl: 'https://mangadex.org',
     apiUrl: 'https://api.mangadex.org',
     enabled: true,
-    default: false,
+    default: true,
     features: {
       latest: true,
       popular: true,
@@ -29,8 +29,8 @@ const providers = {
   komikcast: {
     name: 'Komikcast',
     baseUrl: 'https://komikcast03.com',
-    enabled: true,
-    default: true,
+    enabled: false,
+    default: false,
     features: {
       latest: true,
       popular: true,
@@ -216,7 +216,7 @@ const providers = {
   aquareader: {
     name: 'Aqua Reader',
     baseUrl: 'https://aquareader.net',
-    enabled: true,
+    enabled: false,
     default: false,
     features: {
       latest: true,
@@ -336,7 +336,7 @@ const getProvider = (providerId) => {
  * @returns {object} Default provider configuration
  */
 const getDefaultProvider = () => {
-  return Object.values(providers).find(p => p.default) || providers.komikcast;
+  return Object.values(providers).find(p => p.default) || providers.mangadex;
 };
 
 /**
